@@ -18,7 +18,7 @@ jobs:
           CI: true
       
       - name: Build Project
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
         run: npm run build
       - name: Display structure of build files
         run: ls -R
@@ -37,5 +37,5 @@ jobs:
         run: ls -R
         working-directory: build
       - name: Deploy to Staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
         run: echo "Deploying.."
