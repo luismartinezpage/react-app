@@ -1,7 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]  
+  push:
+    branches: [develop, master]
 
 jobs:
   build:
@@ -23,6 +25,11 @@ jobs:
       - name: Display structure of build files
         run: ls -R
         working-directory: build
+      - name: Create a Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secretes.GITHUB_TOKEN }}
       - name: Upload Build Folder
         uses: actions/upload-artifact@v1
         with:
@@ -35,7 +42,7 @@ jobs:
           path: build
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: build
+        working-directory: build    
       - name: Deploy to Staging
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         run: echo "Deploying.."
