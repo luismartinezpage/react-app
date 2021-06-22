@@ -25,7 +25,8 @@ jobs:
         with:
           name: build
           path: build
-      - uses: actions/download-artifact
+      - name: Downlaod Build Folder
+        uses: actions/download-artifact
         with:
           name: build
           path: build
