@@ -29,7 +29,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secretes.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Build Folder
         uses: actions/upload-artifact@v1
         with:
