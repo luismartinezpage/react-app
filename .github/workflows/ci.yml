@@ -31,21 +31,25 @@ jobs:
         run: |
           zip -r build.zip ./build
           zip -r build.zip ./coverage
+
       - name: Create a Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CUSTOM_SEMANTIC_RELEASE_WORKFLOW_TOKEN }}
+
       - name: Upload Build Folder
         uses: actions/upload-artifact@v1
         with:
           name: build
           path: build
+
       - name: Downlaod Build Folder
         uses: actions/download-artifact@v2
         with:
           name: build
           path: build
+          
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: build    
