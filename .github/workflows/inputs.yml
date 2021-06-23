@@ -1,0 +1,11 @@
+name: Inputs workflow
+on:
+    push:
+      branches:
+        - master
+    workflow_dispatch:
+      inputs:
+        deploy_input:
+          description: 'Deploy? (Yes or No)'
+          required: true
+          default: 'No'
